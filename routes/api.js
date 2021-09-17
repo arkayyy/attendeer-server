@@ -6,6 +6,9 @@ const {MongoClient} = require("mongodb");
 
 const client = new MongoClient(process.env.REACT_APP_MONGO_URI,{useUnifiedTopology:true,useNewUrlParser:true});
 
+router.get('/rk',(req,res)=>{
+    res.json({"id": "JAA MAR JAA BC"})
+});
 
 router.post('/sign-in-user',(req,res)=>{
     async function signInUser(){
