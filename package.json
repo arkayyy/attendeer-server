@@ -1,0 +1,22 @@
+{
+  "name": "attendeer-backend",
+  "version": "1.0.0",
+  "description": "backend for attendeer",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "author": "rajarshi-karan",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "hash-generator": "^0.1.0",
+    "mongoose": "^6.0.6",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}
