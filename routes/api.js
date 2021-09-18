@@ -9,12 +9,12 @@ const client = new MongoClient(process.env.REACT_APP_MONGO_URI,{useUnifiedTopolo
 
 router.get('/',(req,res)=>{
     res.json({"id": "JAA MAR JAA BC"})
-});
+})
 
 
 router.get('/rk',(req,res)=>{
     res.json({"id": "JAA MAR JAA BC"})
-});
+})
 
 router.post('/sign-in-user',(req,res)=>{
     async function signInUser(){
@@ -29,7 +29,7 @@ router.post('/sign-in-user',(req,res)=>{
             {const userExistsCountEmail=await collection.count({email: userLoginInfo.email,password: userLoginInfo.password},{limit:1})
             if(userExistsCountEmail===1){
                 const hash=createHash(16)
-                const myQuery={email: userLoginInfo.email}
+                const myQuery={email: userLoginInfo.email,password: userLoginInfo.password}
                 const newValues={$set:{token: hash}}
                 const result=await collection.updateOne(myQuery,newValues)
                 
@@ -43,7 +43,7 @@ router.post('/sign-in-user',(req,res)=>{
             {const userExistsCountUsername=await collection.count({username: userLoginInfo.username,password: userLoginInfo.password},{limit:1})
                 if(userExistsCountUsername===1){
                     const hash=createHash(16)
-                    const myQuery={username: userLoginInfo.username}
+                    const myQuery={username: userLoginInfo.username, password:userLoginInfo.password}
                     const newValues={$set:{token: hash}}
                     const result=await collection.updateOne(myQuery,newValues)
                     return res.json({token:hash,error:""})
@@ -60,7 +60,7 @@ router.post('/sign-in-user',(req,res)=>{
         }
     }
     signInUser()
-});
+})
 
 router.post('/sign-up-user',(req,res)=>{
     async function signUpUser(){
@@ -74,18 +74,18 @@ router.post('/sign-up-user',(req,res)=>{
             if(alreadyExists===1 || alreadyExistsUsername===1){
                 return res.json({error: 'User with this Email/Username Already Exists!',refNo:null})
             }
-            const hash=createHash(16)
+            const hash=createHash(16);
             const finalUserInfo={...userLoginInfo,
             token:hash}
             const result = await collection.insertOne(finalUserInfo);
-            return res.json({refNo: hash, error: null})
+            return res.json({token: hash, error: null})
         }
         catch(err){
-            return res.json({error: err.message, refNo: null})
+            return res.json({error: err.message, token: null})
         }
     }
     signUpUser()
-});
+})
 
 
 module.exports = router;

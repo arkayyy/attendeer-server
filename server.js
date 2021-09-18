@@ -8,7 +8,7 @@ const router = express.Router();
 const cors = require('cors');
 const {urlencoded} = require('body-parser');
 
-const routes = require('./routes/api')
+const routes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -23,10 +23,10 @@ mongoose.connection.on('connected',()=>{
 });
 
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(morgan('tiny'));
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use(morgan('tiny'))
 
-app.use('/',routes);
+app.use('/api',routes)
 
 app.listen(PORT,console.log(`Server is running at ${PORT}`));
